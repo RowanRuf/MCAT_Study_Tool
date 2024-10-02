@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "PreCAT",
+    "slug": "PreCAT",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/PreCATLogo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/PreCATSplashScreen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#00bfff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/PreCATLogo.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/PreCATLogo.png"
+    }
+  }
+}
