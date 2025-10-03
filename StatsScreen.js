@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         shadowOffset: {width: 5, height: 5},
         shadowColor: 'black',
-        shadowOpacity: 0.5,         // Shadow opacity (0 to 1)
-        shadowRadius: 4,          // Shadow blur radius
+        shadowOpacity: 0.5,      
+        shadowRadius: 4,         
     },
     headerText: {
         alignSelf: "center",

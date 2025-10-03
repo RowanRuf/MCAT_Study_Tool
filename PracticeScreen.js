@@ -24,7 +24,7 @@ export default function PracticeScreen() {
 
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("Question: Which of the following theories most accurately explains the process through which individuals learn behavioral patterns by observing others?1. Psychoanalytic Theory2. Social Cognitive Theory3. Biological Determinism4. Humanistic TheoryCorrect Answer: 2");
-  const [explanation, setExplanation] = useState('Loading Explanation...'); // New state to hold the explanation
+  const [explanation, setExplanation] = useState('Loading Explanation...');
 
   const [question, setQuestion] = useState('Loading Question...');
   const [answer1, setAnswer1] = useState('');
@@ -105,71 +105,71 @@ export default function PracticeScreen() {
  
 
   // Fetch question using OpenAI API //AI
-  // const fetchChatCompletion = async (prompt) => {
-  //   try {
-  //     const response = await fetch("https://api.openai.com/v1/chat/completions", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Authorization": `Bearer sk-r6jIlN9bensebP3A9P-8cM7hl9GSrvEobwopqc9choT3BlbkFJKII8IcmXFvwoCJirvDcVjtlIyn84oBDiN7E5no7rkA` // Replace with your actual API key
-  //       },
-  //       body: JSON.stringify({
-  //         model: "gpt-3.5-turbo",
-  //         max_tokens: 100,
-  //         messages: [
-  //           { role: "user", content: prompt } // Pass the prompt to the API
-  //         ],
-  //       }),
-  //     });
+  const fetchChatCompletion = async (prompt) => {
+    try {
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer sk-r6jIlN9bensebP3A9P-8cM7hl9GSrvEobwopqc9choT3BlbkFJKII8IcmXFvwoCJirvDcVjtlIyn84oBDiN7E5no7rkA` // Replace with your actual API key
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          max_tokens: 100,
+          messages: [
+            { role: "user", content: prompt } // Pass the prompt to the OpenAI API
+          ],
+        }),
+      });
 
-  //     const data = await response.json();
-  //     console.log('Response Data:', data); // Log the response data
+      const data = await response.json();
+      console.log('Response Data:', data); // Log the response data
 
-  //     if (data && data.choices && data.choices.length > 0) {
-  //       return data.choices[0].message.content.trim();
-  //     } else {
-  //       console.log('No choices found in the response');
-  //       return '';
-  //     }
-  //   } catch (error) {
-  //     console.error('Fetch Error:', error);
-  //     return ''; // Handle error by returning an empty string
-  //   }
-  // };
+      if (data && data.choices && data.choices.length > 0) {
+        return data.choices[0].message.content.trim();
+      } else {
+        console.log('No choices found in the response');
+        return '';
+      }
+    } catch (error) {
+      console.error('Fetch Error:', error);
+      return '';
+    }
+  };
 
   const generateQuestion = async () => {
     const mostStruggledTopic = getMostStruggledTopic();
     const prompt = `Create a question on the topic "${mostStruggledTopic}" that would be on the MCAT Exam. Format: Question: [The question here] 1. Answer 1 2. Answer 2 3. Answer 3 4. Answer 4 Correct Answer: [number of correct answer]`;    
-    // const generatedOutput = await fetchChatCompletion(prompt); //AI
-    // if (generatedOutput) {
+    const generatedOutput = await fetchChatCompletion(prompt); //AI
+    if (generatedOutput) {
 
-    //   const questionMatch = generatedOutput.match(/Question:\s*(.*)\n/);
-    //   const answerMatch = generatedOutput.match(/1\.\s*(.*)\n2\.\s*(.*)\n3\.\s*(.*)\n4\.\s*(.*)\n/);
-    //   const correctAnswerMatch = generatedOutput.match(/Correct Answer:\s*(\d)/);
+      const questionMatch = generatedOutput.match(/Question:\s*(.*)\n/);
+      const answerMatch = generatedOutput.match(/1\.\s*(.*)\n2\.\s*(.*)\n3\.\s*(.*)\n4\.\s*(.*)\n/);
+      const correctAnswerMatch = generatedOutput.match(/Correct Answer:\s*(\d)/);
 
-    //   if (questionMatch && answerMatch && correctAnswerMatch) {
-    //     const questionStr = questionMatch[1].trim();
-    //     const answerNumber1 = answerMatch[1].trim();
-    //     const answerNumber2 = answerMatch[2].trim();
-    //     const answerNumber3 = answerMatch[3].trim();
-    //     const answerNumber4 = answerMatch[4].trim();
-    //     const correctAnswerNum = correctAnswerMatch[1].trim();
+      if (questionMatch && answerMatch && correctAnswerMatch) {
+        const questionStr = questionMatch[1].trim();
+        const answerNumber1 = answerMatch[1].trim();
+        const answerNumber2 = answerMatch[2].trim();
+        const answerNumber3 = answerMatch[3].trim();
+        const answerNumber4 = answerMatch[4].trim();
+        const correctAnswerNum = correctAnswerMatch[1].trim();
   
-    //     // Set the state variables
-    //     setQuestion(questionStr);
-    //     setAnswer1(answerNumber1);
-    //     setAnswer2(answerNumber2);
-    //     setAnswer3(answerNumber3);
-    //     setAnswer4(answerNumber4);
-    //     setCorrectAnswer(correctAnswerNum);
-    //     setTopic(mostStruggledTopic);
-    //     setCorrectAnswerPressed(false); // Reset answer press state for next question
-    //     setAnswer1Pressed(false);
-    //     setAnswer2Pressed(false);
-    //     setAnswer3Pressed(false);
-    //     setAnswer4Pressed(false);
-    //   }
-    // }
+        //Set the state variables after generating new prompt
+        setQuestion(questionStr);
+        setAnswer1(answerNumber1);
+        setAnswer2(answerNumber2);
+        setAnswer3(answerNumber3);
+        setAnswer4(answerNumber4);
+        setCorrectAnswer(correctAnswerNum);
+        setTopic(mostStruggledTopic);
+        setCorrectAnswerPressed(false);
+        setAnswer1Pressed(false);
+        setAnswer2Pressed(false);
+        setAnswer3Pressed(false);
+        setAnswer4Pressed(false);
+      }
+    }
     if (output) {       //test output NOT AI
       // Set the state variables
       setQuestion("Which of the following theories most accurately explains the process through which individuals learn behavioral patterns by observing others?");
@@ -324,7 +324,7 @@ export default function PracticeScreen() {
               }}
             >
               <Image
-                source={require('./assets/explanationBtnImg.png')} // Replace with valid image URI or source
+                source={require('./assets/explanationBtnImg.png')}
                 style={styles.explanationImg}
               />
             </TouchableOpacity>
@@ -357,7 +357,7 @@ export default function PracticeScreen() {
             }}
           >
             <Image
-              source={require('./assets/nextBtnImg.png')} // Replace with valid image URI or source
+              source={require('./assets/nextBtnImg.png')}
               style={styles.nextImg}
             />
           </TouchableOpacity>
@@ -368,26 +368,26 @@ export default function PracticeScreen() {
 }
 const styles = StyleSheet.create({
   buttonContainer: {
-    flexDirection: 'column',    // Align buttons horizontally
-    justifyContent: 'space-around',  // Spread out the buttons
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     marginTop: 10,
   },
   btnNormal: {
-    backgroundColor: "lightgray",             // Set a fixed width for the buttons
+    backgroundColor: "lightgray",             
     paddingVertical: 20,
     marginVertical: 10,
     borderRadius: 20,
     borderWidth: 2,
   },
   btnCorrect: {
-    backgroundColor: "lime",             // Set a fixed width for the buttons
+    backgroundColor: "lime",          
     paddingVertical: 20,
     marginVertical: 10,
     borderRadius: 20,
     borderWidth: 2,
   },
   btnFail: {
-    backgroundColor: "red",             // Set a fixed width for the buttons
+    backgroundColor: "red",           
     paddingVertical: 20,
     marginVertical: 10,
     borderRadius: 20,
@@ -399,12 +399,12 @@ const styles = StyleSheet.create({
   },
   nextBtn: {
     position: 'absolute',
-    top: 10,  // Distance from bottom
-    right: 10,   // Distance from right
+    top: 10, 
+    right: 10,
   },
   nextImg: {
-    width: 75,   // Width of the image
-    height: 75,  // Height of the image
+    width: 75,   
+    height: 75, 
   },
   modalContent: {
     fontSize: 20,

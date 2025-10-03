@@ -19,10 +19,9 @@ export default function App() {
                 tabBarInactiveTintColor: "lightgray",
                 headerShown: false,
                 tabBarStyle: {
-                    height: 50, 
+                    height: 50,
                     borderTopWidth: 4,
-                    borderTopColor: "deepskyblue"
-                    //padding: 20, // Add padding to center the icons/text
+                    borderTopColor: "lime"
                 },
             }}>
             <Tab.Screen name="PreCAT" 
@@ -38,7 +37,7 @@ export default function App() {
                                 height: 25,
                                 resizeMode: 'contain',
                                 justifyContent: "center",
-                                tintColor: focused ? 'deepskyblue' : 'lightgray', // Optional tint color
+                                tintColor: focused ? 'deepskyblue' : 'lightgray',
                             }}
                         />
                     ),
@@ -57,7 +56,7 @@ export default function App() {
                                 height: 25,
                                 resizeMode: 'contain',
                                 justifyContent: "center",
-                                tintColor: focused ? 'deepskyblue' : 'lightgray', // Optional tint color
+                                tintColor: focused ? 'deepskyblue' : 'lightgray',
                             }}
                         />
                     ),
