@@ -111,7 +111,7 @@ export default function PracticeScreen() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer sk-r6jIlN9bensebP3A9P-8cM7hl9GSrvEobwopqc9choT3BlbkFJKII8IcmXFvwoCJirvDcVjtlIyn84oBDiN7E5no7rkA` // Replace with your actual API key
+          "Authorization": '' // Replace with your actual API key
         },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
